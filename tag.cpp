@@ -18,6 +18,8 @@ static struct option long_options[] =
 
 */
 
+void print_help();
+
 const int DEFAULT_ARGC = 3;
 
 int main(int argc, char *argv[])
@@ -57,9 +59,15 @@ int main(int argc, char *argv[])
     {
         print_help();
     }
+
+    if (!file_flag)
+    {
+        
+    }
 }
 
-void print_help()
+void 
+print_help()
 {
     cout << "\n"
          << FMT_BOLD << "scanpf" << FMT_RESET << " "

@@ -18,10 +18,10 @@ INCLUDES= -I/usr/local/include/cppunit/
 # add addtional libs here
 
 # Makefile settings - Can be customized.
-APPNAME = app
+APPNAME = tag
 EXT = cpp
-SRCDIR = ../src
-OBJDIR = ../src
+SRCDIR = .
+OBJDIR = .
 
 # complie & link for debug
 debug: CXXFLAGS += -DDEBUG -g
@@ -34,19 +34,20 @@ debuggdb: all
 # complie & link
 all: $(APPNAME) $(APPNAME)_test
 	
-# compile only
-$(APPNAME): $(APPNAME).o 
-	 $(CXX) $(CXXFLAGS) $(OBJDIR)/$(APPNAME).o $(OBJDIR)/main.o -o $(SRCDIR)/$(APPNAME)
 
+$(APPNAME): $(APPNAME).o 
+	 $(CXX) $(CXXFLAGS) $(OBJDIR)/$(APPNAME).o -o $(SRCDIR)/$(APPNAME)
+
+# compile only
 $(APPNAME).o:
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/$(APPNAME).$(EXT) -o $(SRCDIR)/$(APPNAME).o
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/main.$(EXT) -o $(SRCDIR)/main.o
+	#$(CXX) $(CXXFLAGS) -c $(SRCDIR)/main.$(EXT) -o $(SRCDIR)/main.o
 
-$(APPNAME)_test: $(APPNAME)_test.o
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCDIR)/$(APPNAME)_test.o $(SRCDIR)/$(APPNAME).o $(LDFLAGS) -o $(SRCDIR)/$(APPNAME)_test
+# $(APPNAME)_test: $(APPNAME)_test.o
+# 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCDIR)/$(APPNAME)_test.o $(SRCDIR)/$(APPNAME).o $(LDFLAGS) -o $(SRCDIR)/$(APPNAME)_test
 
-$(APPNAME)_test.o:
-	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/$(APPNAME)_test.cpp -o $(SRCDIR)/$(APPNAME)_test.o
+# $(APPNAME)_test.o:
+# 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/$(APPNAME)_test.cpp -o $(SRCDIR)/$(APPNAME)_test.o
 
 autotools_reconf:
 	cd ../

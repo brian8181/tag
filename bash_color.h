@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-//using std::string;
+using std::string;
 
 // shell color constants
 const string FMT_FG_DEFUALT        = "\033[39m";
