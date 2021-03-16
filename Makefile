@@ -32,8 +32,7 @@ debuggdb: CXXFLAGS += -DDEBUG -ggdb
 debuggdb: all
   
 # complie & link
-all: $(APPNAME) $(APPNAME)_test
-	
+all: $(APPNAME) #$(APPNAME)_test
 
 $(APPNAME): $(APPNAME).o 
 	 $(CXX) $(CXXFLAGS) $(OBJDIR)/$(APPNAME).o -o $(SRCDIR)/$(APPNAME)
@@ -41,7 +40,6 @@ $(APPNAME): $(APPNAME).o
 # compile only
 $(APPNAME).o:
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/$(APPNAME).$(EXT) -o $(SRCDIR)/$(APPNAME).o
-	#$(CXX) $(CXXFLAGS) -c $(SRCDIR)/main.$(EXT) -o $(SRCDIR)/main.o
 
 # $(APPNAME)_test: $(APPNAME)_test.o
 # 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRCDIR)/$(APPNAME)_test.o $(SRCDIR)/$(APPNAME).o $(LDFLAGS) -o $(SRCDIR)/$(APPNAME)_test
