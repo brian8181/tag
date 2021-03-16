@@ -13,9 +13,12 @@ CXX = g++
 CXXFLAGS = -Wall -std=c++11 -std=c++17 --std=c++2a
 
 # lib settings
-LDFLAGS = -static -lcppunit -L/usr/local/lib/
-INCLUDES= -I/usr/local/include/cppunit/
+#LDFLAGS = -static -lcppunit -L/usr/local/lib/
+#INCLUDES= -I/usr/local/include/cppunit/
 # add addtional libs here
+LDFLAGS = -ltag -L/usr/local/lib/
+INCLUDES= -I/usr/local/include/taglib/
+
 
 # Makefile settings - Can be customized.
 APPNAME = tag
@@ -35,7 +38,7 @@ debuggdb: all
 all: $(APPNAME) #$(APPNAME)_test
 
 $(APPNAME): $(APPNAME).o 
-	 $(CXX) $(CXXFLAGS) $(OBJDIR)/$(APPNAME).o -o $(SRCDIR)/$(APPNAME)
+	$(CXX) $(CXXFLAGS) $(OBJDIR)/$(APPNAME).o $(LDFLAGS) $(INCLUDES) -o $(SRCDIR)/$(APPNAME)
 
 # compile only
 $(APPNAME).o:

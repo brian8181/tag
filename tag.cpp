@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <taglib/fileref.h>
+#include <taglib/tag.h>
 #include <getopt.h>
 #include "bash_color.h"
 
@@ -48,6 +50,19 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
+
+    // TagLib::FileRef f("test/test1.mp3");
+    // TagLib::String artist = f.tag()->artist(); // artist == "Frank Zappa"
+    
+    // f.tag()->setAlbum("Fillmore East");
+    // f.save();
+    
+    TagLib::FileRef g("test/test1.mp3");
+    TagLib::String album = g.tag()->album(); 
+    cout << "album: " << album << endl;
+    
+    // g.tag()->setTrack(1);
+    // g.save();
 
     if (optind != (argc - DEFAULT_ARGC)) // not correct number of args
     {

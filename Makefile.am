@@ -1,11 +1,10 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-bin_PROGRAMS = rx
-EXTRA_PROGRAMS = rx_test
+bin_PROGRAMS = tag
+#EXTRA_PROGRAMS = rx_test
 
-rx_SOURCES = src/main.cpp src/rx.cpp src/rx.hpp src/rx_test.cpp src/rx_test.hpp
-
-rx_LDADD = $(LDADD) $(DEPS_LIBS) $(ICONV_LIB) $(DL_LIBS)
+tag_SOURCES = tag.cpp
+tag_LDADD = $(LDADD) $(DEPS_LIBS) $(ICONV_LIB) $(DL_LIBS)
 
 
 #distdir = $(PACKAGE)-$(VERSION)
