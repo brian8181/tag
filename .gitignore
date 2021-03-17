@@ -31,3 +31,6 @@
 *.out
 *.app
 tag
+.deps/**
+autom4te.cache/**
+

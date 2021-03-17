@@ -16,7 +16,13 @@ static struct option long_options[] =
 {
     {"verbose", no_argument, 0, 'v'},
     {"help", no_argument, 0, 'h'},
-    {"file", no_argument, 0, 'f'}
+    {"album", no_argument, 0, 'a'},
+    {"artist", no_argument, 0, 'r'},
+    {"track", no_argument, 0, 't'},
+    {"disc", no_argument, 0, 'd'},
+    {"title", no_argument, 0, 'n'},
+    {"year", no_argument, 0, 'y'},
+    {"genre", no_argument, 0, 'g'}
 };
 
 TagLib::String formatSeconds(int seconds)
@@ -45,7 +51,7 @@ int main(int argc, char *argv[])
     bool verbose_flag = false;
     
     optind = 0;
-    while((opt = getopt_long(argc, argv, "hvf", long_options, &option_index)) != -1)
+    while((opt = getopt_long(argc, argv, "hvartdnyg", long_options, &option_index)) != -1)
     {
         switch (opt)
         {
@@ -70,9 +76,9 @@ int main(int argc, char *argv[])
     // f.tag()->setAlbum("Fillmore East");
     // f.save();
     
-    TagLib::FileRef g("test/test1.mp3");
-    TagLib::String album = g.tag()->album(); 
-    cout << "album: " << album << endl;
+    // TagLib::FileRef g("../test/test1.mp3");
+    // TagLib::String album = g.tag()->album(); 
+    // cout << "album: " << album << endl;
     
     // g.tag()->setTrack(1);
     // g.save();
@@ -101,17 +107,14 @@ PrintTags(int argc, char *argv[])
 {
     for(int i = 1; i < argc; i++)
     {
-
-        cout << "******************** \"" << argv[i] << "\" ********************" << endl;
-
+        //cout << "******************** \"" << argv[i] << "\" ********************" << endl;
         TagLib::FileRef f(argv[i]);
-
         if(!f.isNull() && f.tag())
         {
 
             TagLib::Tag *tag = f.tag();
 
-            cout << "-- TAG (basic) --" << endl;
+            //cout << "-- TAG (basic) --" << endl;
             cout << "title   - \"" << tag->title()   << "\"" << endl;
             cout << "artist  - \"" << tag->artist()  << "\"" << endl;
             cout << "album   - \"" << tag->album()   << "\"" << endl;
@@ -120,40 +123,38 @@ PrintTags(int argc, char *argv[])
             cout << "track   - \"" << tag->track()   << "\"" << endl;
             cout << "genre   - \"" << tag->genre()   << "\"" << endl;
 
-            TagLib::PropertyMap tags = f.file()->properties();
+            // TagLib::PropertyMap tags = f.file()->properties();
+            // unsigned int longest = 0;
+            // for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
+            // {
+            //     if (i->first.size() > longest)
+            //     {
+            //         longest = i->first.size();
+            //     }
+            // }
 
-            unsigned int longest = 0;
-            for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
-            {
-                if (i->first.size() > longest)
-                {
-                    longest = i->first.size();
-                }
-            }
-
-            cout << "-- TAG (properties) --" << endl;
-            for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
-            {
-                for(TagLib::StringList::ConstIterator j = i->second.begin(); j != i->second.end(); ++j)
-                {
-                    cout << left << std::setw(longest) << i->first << " - " << '"' << *j << '"' << endl;
-                }
-            }
+            // cout << "-- TAG (properties) --" << endl;
+            // for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
+            // {
+            //     for(TagLib::StringList::ConstIterator j = i->second.begin(); j != i->second.end(); ++j)
+            //     {
+            //         cout << left << std::setw(longest) << i->first << " - " << '"' << *j << '"' << endl;
+            //     }
+            // }
         }
     
-        if(!f.isNull() && f.audioProperties())
-        {
-            TagLib::AudioProperties *properties = f.audioProperties();
+        // if(!f.isNull() && f.audioProperties())
+        // {
+        //     TagLib::AudioProperties *properties = f.audioProperties();
+        //     int seconds = properties->length() % 60;
+        //     int minutes = (properties->length() - seconds) / 60;
 
-            int seconds = properties->length() % 60;
-            int minutes = (properties->length() - seconds) / 60;
-
-            cout << "-- AUDIO --" << endl;
-            cout << "bitrate     - " << properties->bitrate() << endl;
-            cout << "sample rate - " << properties->sampleRate() << endl;
-            cout << "channels    - " << properties->channels() << endl;
-            cout << "length      - " << minutes << ":" << formatSeconds(seconds) << endl;
-        }
+        //     cout << "-- AUDIO --" << endl;
+        //     cout << "bitrate     - " << properties->bitrate() << endl;
+        //     cout << "sample rate - " << properties->sampleRate() << endl;
+        //     cout << "channels    - " << properties->channels() << endl;
+        //     cout << "length      - " << minutes << ":" << formatSeconds(seconds) << endl;
+        // }
     }
 }
 

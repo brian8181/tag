@@ -23,8 +23,8 @@ INCLUDES= -I/usr/local/include/taglib/
 # Makefile settings - Can be customized.
 APPNAME = tag
 EXT = cpp
-SRCDIR = .
-OBJDIR = .
+SRCDIR = ..
+OBJDIR = ..
 
 # complie & link for debug
 debug: CXXFLAGS += -DDEBUG -g
