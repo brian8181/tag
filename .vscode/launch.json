@@ -24,6 +24,27 @@
             ],
             "preLaunchTask": "MAKE DEBUGGDB",
             "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "g++ - MAKE DEBUGGDB2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": ["/media/brian/778B1C247CE982DF/music-lib/soundtrack/1979 - Apocalypse Now/1.01. The Doors - The End.flac"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "MAKE DEBUGGDB",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
 }

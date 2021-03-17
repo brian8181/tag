@@ -5,7 +5,6 @@
 
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
-//#include <taglib/tpropertymap.h>
 
 #include <getopt.h>
 #include "bash_color.h"
@@ -34,7 +33,7 @@ static struct option long_options[] =
 void PrintTags(int argc, char *argv[], bool verbose);
 void print_help();
 
-const int DEFAULT_ARGC = 2;
+const int DEFAULT_ARGC = 1;
 
 int main(int argc, char *argv[])
 {
@@ -53,9 +52,6 @@ int main(int argc, char *argv[])
         case 'v':
             verbose_flag = true;
             break;
-        // case 'f':
-        //     file_flag = true;
-        //     break;
         default: // unknown option before args
             fprintf(stderr, "Unexpected option, -h for help\n");
             return EXIT_FAILURE;
