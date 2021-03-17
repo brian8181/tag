@@ -5,7 +5,7 @@
 
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
-#include <taglib/tpropertymap.h>
+//#include <taglib/tpropertymap.h>
 
 #include <getopt.h>
 #include "bash_color.h"
@@ -25,29 +25,21 @@ static struct option long_options[] =
     {"genre", no_argument, 0, 'g'}
 };
 
-TagLib::String formatSeconds(int seconds)
-{
-  char secondsString[3];
-  sprintf(secondsString, "%02i", seconds);
-  return secondsString;
-};
-
 /*
 
  tag [opts] [INPUT] ... ]
 
 */
 
-void PrintTags(int argc, char *argv[]);
+void PrintTags(int argc, char *argv[], bool verbose);
 void print_help();
 
-const int DEFAULT_ARGC = 3;
+const int DEFAULT_ARGC = 2;
 
 int main(int argc, char *argv[])
 {
     int opt = 0;
     int option_index = 0;
-    bool file_flag = false;
     bool verbose_flag = false;
     
     optind = 0;
@@ -61,30 +53,15 @@ int main(int argc, char *argv[])
         case 'v':
             verbose_flag = true;
             break;
-        case 'f':
-            file_flag = true;
-            break;
+        // case 'f':
+        //     file_flag = true;
+        //     break;
         default: // unknown option before args
             fprintf(stderr, "Unexpected option, -h for help\n");
             return EXIT_FAILURE;
         }
     }
-
-    // TagLib::FileRef f("test/test1.mp3");
-    // TagLib::String artist = f.tag()->artist(); // artist == "Frank Zappa"
-    
-    // f.tag()->setAlbum("Fillmore East");
-    // f.save();
-    
-    // TagLib::FileRef g("../test/test1.mp3");
-    // TagLib::String album = g.tag()->album(); 
-    // cout << "album: " << album << endl;
-    
-    // g.tag()->setTrack(1);
-    // g.save();
-
-    PrintTags(argc, argv);
-
+ 
     if (optind != (argc - DEFAULT_ARGC)) // not correct number of args
     {
         fprintf(stderr, "Expected argument after options, -h for help\n");
@@ -96,65 +73,37 @@ int main(int argc, char *argv[])
         print_help();
     }
 
-    if (!file_flag)
-    {
-        
-    }
+    PrintTags(argc, argv, verbose_flag);
 }
 
 void 
-PrintTags(int argc, char *argv[])
+PrintTags(int argc, char *argv[], bool verbose)
 {
     for(int i = 1; i < argc; i++)
     {
-        //cout << "******************** \"" << argv[i] << "\" ********************" << endl;
         TagLib::FileRef f(argv[i]);
         if(!f.isNull() && f.tag())
         {
-
             TagLib::Tag *tag = f.tag();
 
-            //cout << "-- TAG (basic) --" << endl;
-            cout << "title   - \"" << tag->title()   << "\"" << endl;
-            cout << "artist  - \"" << tag->artist()  << "\"" << endl;
-            cout << "album   - \"" << tag->album()   << "\"" << endl;
-            cout << "year    - \"" << tag->year()    << "\"" << endl;
-            cout << "comment - \"" << tag->comment() << "\"" << endl;
-            cout << "track   - \"" << tag->track()   << "\"" << endl;
-            cout << "genre   - \"" << tag->genre()   << "\"" << endl;
-
-            // TagLib::PropertyMap tags = f.file()->properties();
-            // unsigned int longest = 0;
-            // for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
-            // {
-            //     if (i->first.size() > longest)
-            //     {
-            //         longest = i->first.size();
-            //     }
-            // }
-
-            // cout << "-- TAG (properties) --" << endl;
-            // for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i)
-            // {
-            //     for(TagLib::StringList::ConstIterator j = i->second.begin(); j != i->second.end(); ++j)
-            //     {
-            //         cout << left << std::setw(longest) << i->first << " - " << '"' << *j << '"' << endl;
-            //     }
-            // }
+            if(verbose)
+            {
+                cout << "******************** \"" << argv[i] << "\" ********************" << endl;
+                cout << "-- TAG (basic) --" << endl;
+                cout << "title   - \"" << tag->title()   << "\"" << endl;
+                cout << "artist  - \"" << tag->artist()  << "\"" << endl;
+                cout << "album   - \"" << tag->album()   << "\"" << endl;
+                cout << "year    - \"" << tag->year()    << "\"" << endl;
+                cout << "comment - \"" << tag->comment() << "\"" << endl;
+                cout << "track   - \"" << tag->track()   << "\"" << endl;
+                cout << "genre   - \"" << tag->genre()   << "\"" << endl;
+            }
+            else
+            {
+                cout << tag->artist() << ',' << tag->album() << ',' << tag->year() << ',' 
+                        << tag->track() << ',' << tag->genre() << ',' << tag->title() << endl;
+            }
         }
-    
-        // if(!f.isNull() && f.audioProperties())
-        // {
-        //     TagLib::AudioProperties *properties = f.audioProperties();
-        //     int seconds = properties->length() % 60;
-        //     int minutes = (properties->length() - seconds) / 60;
-
-        //     cout << "-- AUDIO --" << endl;
-        //     cout << "bitrate     - " << properties->bitrate() << endl;
-        //     cout << "sample rate - " << properties->sampleRate() << endl;
-        //     cout << "channels    - " << properties->channels() << endl;
-        //     cout << "length      - " << minutes << ":" << formatSeconds(seconds) << endl;
-        // }
     }
 }
 
@@ -162,9 +111,7 @@ void
 print_help()
 {
     cout << "\n"
-         << FMT_BOLD << "scanpf" << FMT_RESET << " "
+         << FMT_BOLD << "tag" << FMT_RESET << " "
          << "[OPTIONS] "
-         << FMT_UNDERLINE << "INPUT_PATTERN" << FMT_RESET << " "
-         << FMT_UNDERLINE << "OUTPUT_PATTERN" << FMT_RESET << " "
          << FMT_UNDERLINE << "[INPUT ...]" << FMT_RESET << "\n\n";
 }
