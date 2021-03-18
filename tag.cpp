@@ -30,7 +30,7 @@ static struct option long_options[] =
 
 */
 
-void PrintTags(int argc, char *argv[], bool verbose);
+void print_tags(int argc, char *argv[], bool verbose);
 void print_help();
 
 const int DEFAULT_ARGC = 1;
@@ -69,11 +69,10 @@ int main(int argc, char *argv[])
         print_help();
     }
 
-    PrintTags(argc, argv, verbose_flag);
+    print_tags(argc, argv, verbose_flag);
 }
 
-void 
-PrintTags(int argc, char *argv[], bool verbose)
+void print_tags(int argc, char *argv[], bool verbose)
 {
     for(int i = 1; i < argc; i++)
     {
@@ -103,8 +102,7 @@ PrintTags(int argc, char *argv[], bool verbose)
     }
 }
 
-void 
-print_help()
+void print_help()
 {
     cout << "\n"
          << FMT_BOLD << "tag" << FMT_RESET << " "
