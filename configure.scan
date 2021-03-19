@@ -16,8 +16,8 @@ AC_PROG_INSTALL
 # FIXME: Replace `main' with a function in `-ltag':
 AC_CHECK_LIB([tag], [main])
 
-# Checks for header files.
-
+# Checks for header files.AM_INIT_AUTOMAKE,
+AM_INIT_AUTOMAKE,
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
 
