@@ -19,7 +19,7 @@ SRCDIR = .
 OBJDIR = .
 
 # libs here
-LDFLAGS = -ltag -L/usr/local/lib/
+LDFLAGS = -ltag -L/usr/local/lib/ -lz
 INCLUDES= -I/usr/local/include/taglib/
 # LDFLAGS += -static -lcppunit -L/usr/local/lib/
 # INCLUDES+= -I/usr/local/include/cppunit/
