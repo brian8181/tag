@@ -16,7 +16,7 @@ CXXFLAGS = -Wall -std=c++11 -std=c++17 --std=c++2a
 #LDFLAGS = -static -lcppunit -L/usr/local/lib/
 #INCLUDES= -I/usr/local/include/cppunit/
 # add addtional libs here
-LDFLAGS = -ltag -L/usr/local/lib/
+LDFLAGS = -ltag -L/usr/local/lib/ -lz
 INCLUDES= -I/usr/local/include/taglib/
 
 
